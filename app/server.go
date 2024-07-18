@@ -46,8 +46,9 @@ func main() {
 
 		params := splitParams.Split(splitReq[0], -1)[1]
 
-		url := splitUrl.Split(splitReq[1], -1)[1]
-
+		ans := splitUrl.Split(splitReq[1], -1)
+		fmt.Println("%d", len(ans))
+		url := ans[1]
 		path := url + params
 
 		fmt.Println(path)
