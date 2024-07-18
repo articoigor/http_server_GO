@@ -48,6 +48,7 @@ func createConnection(conn net.Conn) {
 }
 
 func checkEcho(params string, conn net.Conn) {
+	fmt.Println(params)
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
