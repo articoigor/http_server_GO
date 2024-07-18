@@ -37,13 +37,17 @@ func main() {
 	logStrings(req)
 
 	if err == nil {
-		re, _ := regexp.Compile("\n")
+		splitByNewLine, _ := regexp.Compile("\n")
 
-		host := re.Split(req, -1)[1]
+		splitReq := splitByNewLine.Split(req, -1)
 
-		re, _ = regexp.Compile(` `)
+		splitBySpace, _ := regexp.Compile(` `)
 
-		path := re.Split(host, -1)[1]
+		url := splitBySpace.Split(splitReq[1], 1)[1]
+
+		params := splitBySpace.Split(splitReq[0], -1)[1]
+
+		path := url + params
 
 		if path == "localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
