@@ -44,7 +44,7 @@ func createConnection(conn net.Conn) {
 
 	fmt.Println(req)
 
-	if err != nil {
+	if err == nil {
 		go processRequest(req, conn)
 	}
 }
