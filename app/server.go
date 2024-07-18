@@ -43,7 +43,7 @@ func main() {
 
 		splitBySpace, _ := regexp.Compile(` `)
 
-		url := splitBySpace.Split(splitReq[1], 1)[1]
+		url := splitBySpace.Split(splitReq[1], -1)[1]
 
 		params := splitBySpace.Split(splitReq[0], -1)[1]
 
