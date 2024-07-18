@@ -39,15 +39,12 @@ func main() {
 		splitByNewLine, _ := regexp.Compile("\n")
 
 		splitReq := splitByNewLine.Split(req, -1)
-		fmt.Println(splitReq[0])
-		fmt.Println(splitReq[1])
 
-		splitUrl, _ := regexp.Compile(` `)
-		splitParams, _ := regexp.Compile(` `)
+		splitBySpace, _ := regexp.Compile(` `)
 
-		params := splitParams.Split(splitReq[0], -1)[1]
+		params := splitBySpace.Split(splitReq[0], -1)[1]
 
-		url := strings.TrimSpace(splitUrl.Split(splitReq[1], -1)[1])
+		url := strings.TrimSpace(splitBySpace.Split(splitReq[1], -1)[1])
 
 		if url == "localhost:4221" && params == "/" {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
