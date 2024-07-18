@@ -31,7 +31,7 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		re, _ := regexp.Compile(`\s`)
+		re, _ := regexp.Compile(` `)
 
 		splitReq := re.Split(req, -1)
 
