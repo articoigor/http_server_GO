@@ -92,6 +92,8 @@ func processRequest(req string, conn net.Conn) {
 
 	checkUserAgent(userAgent, conn)
 
+	fmt.Println(url)
+
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
 	if url != "localhost:4221" || params != "/" {
