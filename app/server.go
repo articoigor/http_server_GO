@@ -59,15 +59,13 @@ func checkEcho(params string, conn net.Conn) {
 }
 
 func processRequest(req string, conn net.Conn) {
-	splitByNewLine, _ := regexp.Compile("\n")
+	splitReq := regexp.MustCompile("\r\n").Split(req, -1)
 
-	splitReq := splitByNewLine.Split(req, -1)
+	spaceSplitter, _ := regexp.Compile(` `)
 
-	splitBySpace, _ := regexp.Compile(` `)
+	params := spaceSplitter.Split(splitReq[0], -1)[1]
 
-	params := splitBySpace.Split(splitReq[0], -1)[1]
-
-	url := strings.TrimSpace(splitBySpace.Split(splitReq[1], -1)[1])
+	url := strings.TrimSpace(spaceSplitter.Split(splitReq[1], -1)[1])
 
 	checkEcho(params, conn)
 
