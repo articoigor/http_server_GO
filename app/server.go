@@ -45,6 +45,8 @@ func createConnection(conn net.Conn) {
 
 	_, err := conn.Read(bytes)
 
+	fmt.Println(len(bytes))
+
 	req := string(bytes)
 
 	fmt.Println("TESTE")
