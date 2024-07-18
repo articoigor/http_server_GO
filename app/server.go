@@ -14,8 +14,6 @@ func logStrings(s string) {
 }
 
 func main() {
-	fmt.Println("Logs from your program will appear here!")
-
 	l, err := net.Listen("tcp", "0.0.0.0:4221")
 
 	if err != nil {
@@ -36,7 +34,7 @@ func main() {
 
 	req := string(bytes)
 
-	logStrings(req)
+	// logStrings(req)
 
 	if err == nil {
 		re, _ := regexp.Compile("\n")
