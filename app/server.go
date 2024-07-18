@@ -22,7 +22,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	theresConns := true
+	var theresConns bool = true
 
 	for i := 0; theresConns == true; i++ {
 		conn, err := l.Accept()
