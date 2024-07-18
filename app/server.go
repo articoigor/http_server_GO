@@ -47,6 +47,9 @@ func main() {
 
 		path := url + params
 
+		fmt.Println(url)
+		fmt.Println(path)
+
 		if url == "localhost:4221" && path == "" {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		} else {
