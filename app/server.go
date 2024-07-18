@@ -32,13 +32,13 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		splitReq := strings.Split(req, "\r\n")
+		splitReq := strings.Split(req, "-v")
 
 		fmt.Println(splitReq)
 
 		re, _ := regexp.Compile(`(GET|POST)\s(.*)\s+`)
 
-		details := re.FindString(splitReq[0])
+		details := re.FindString(splitReq[1])
 
 		path := strings.Split(details, " ")[1]
 
