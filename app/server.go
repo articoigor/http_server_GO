@@ -77,7 +77,6 @@ func processRequest(req string, conn net.Conn) {
 	reqRegex, _ := regexp.Compile("\n")
 
 	reqComponents := reqRegex.Split(req, -1)
-	fmt.Println(len(reqComponents))
 
 	spaceSplitter, _ := regexp.Compile(` `)
 
