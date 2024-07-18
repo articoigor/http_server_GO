@@ -29,25 +29,6 @@ func main() {
 	} else {
 		createConnection(conn)
 	}
-
-	// theresConns := true
-
-	// for i := 0; theresConns; i++ {
-
-	// 	conn, err := l.Accept()
-
-	// 	fmt.Printf("Conection count: %d", i)
-
-	// 	defer conn.Close()
-
-	// 	if err != nil {
-	// 		fmt.Println("Error accepting connection: ", err.Error())
-
-	// 		theresConns = false
-	// 	} else {
-	// 		createConnection(conn)
-	// 	}
-	// }
 }
 
 func createConnection(conn net.Conn) {
