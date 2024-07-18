@@ -29,7 +29,7 @@ func main() {
 	if err != nil {
 		fmt.Println("Error accepting connection: ", err.Error())
 	} else {
-		createConnection(conn)
+		createConnection(conn, "TESTE")
 	}
 
 	// theresConns := true
@@ -52,7 +52,8 @@ func main() {
 	// }
 }
 
-func createConnection(conn net.Conn) {
+func createConnection(conn net.Conn, str string) {
+	fmt.Println(str)
 	bytes := make([]byte, 128)
 
 	_, err := conn.Read(bytes)
