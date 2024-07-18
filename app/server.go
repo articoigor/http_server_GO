@@ -31,13 +31,13 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		re, _ := regexp.Compile(` `)
+		re, _ := regexp.Compile(`\s`)
 
 		splitReq := re.Split(req, -1)
 
 		fmt.Sprintln(splitReq)
 
-		path := splitReq[3]
+		path := splitReq[2]
 
 		if path == "http://localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
