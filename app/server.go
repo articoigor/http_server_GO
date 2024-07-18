@@ -42,8 +42,6 @@ func createConnection(conn net.Conn) {
 
 	req := string(bytes)
 
-	fmt.Println(req)
-
 	if err == nil {
 		go processRequest(req, conn)
 	}
@@ -76,7 +74,6 @@ func checkUserAgent(arr []string, conn net.Conn) {
 }
 
 func processRequest(req string, conn net.Conn) {
-	fmt.Println(req)
 	reqRegex, _ := regexp.Compile("\n")
 
 	reqComponents := reqRegex.Split(req, -1)
