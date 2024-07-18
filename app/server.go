@@ -34,6 +34,8 @@ func main() {
 	if err == nil {
 		splitReq := strings.Split(req, "\r\n")
 
+		fmt.Println(splitReq)
+
 		re, _ := regexp.Compile(`(GET|POST)\s(.*)\s+`)
 
 		details := re.FindString(splitReq[0])
