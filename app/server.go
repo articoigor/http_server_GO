@@ -35,7 +35,7 @@ func main() {
 
 		splitReq := re.Split(req, -1)
 
-		fmt.Sprintln(req)
+		fmt.Sprintln("Req as string: %s", req)
 
 		path := splitReq[1]
 
