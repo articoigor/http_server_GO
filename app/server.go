@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"strings"
+	"regexp"
 )
 
 func main() {
@@ -31,9 +31,11 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		splitReq := strings.Split(req, " ")
+		re, _ := regexp.Compile(`\s`)
 
-		fmt.Println(splitReq)
+		splitReq := re.Split(req, -1)
+
+		fmt.Sprintln(splitReq)
 
 		path := splitReq[3]
 
