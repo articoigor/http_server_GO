@@ -47,6 +47,8 @@ func createConnection(conn net.Conn) {
 
 	req := string(bytes)
 
+	fmt.Println(req)
+
 	if err == nil {
 		processRequest(req, conn)
 	}
@@ -63,8 +65,6 @@ func checkEcho(params string, conn net.Conn) {
 		content := contentRegex.Split(params, -1)[2]
 
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
-
-		fmt.Println(str)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
 	}
