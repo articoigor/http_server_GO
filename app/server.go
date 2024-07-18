@@ -47,10 +47,11 @@ func main() {
 
 		path := url + params
 
-		fmt.Println(url)
-		fmt.Println(path)
+		urlRegex, _ := regexp.Compile(`localhost:4221(.*)`)
 
-		if url == "localhost:4221" && path == "" {
+		validUrl := urlRegex.MatchString(path)
+
+		if validUrl == true {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		} else {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
