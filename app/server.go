@@ -48,17 +48,7 @@ func main() {
 
 		url := splitUrl.Split(splitReq[1], -1)[1]
 
-		path := fmt.Sprintf("%s%s", url, params)
-		fmt.Println(url)
-		fmt.Println(params)
-
-		fmt.Println(path)
-
-		urlRegex, _ := regexp.Compile(`localhost:4221\/*/`)
-
-		validUrl := urlRegex.MatchString(path)
-
-		if validUrl {
+		if params == "/" && url == "localhost:4221" {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		} else {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
