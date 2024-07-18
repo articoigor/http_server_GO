@@ -41,11 +41,13 @@ func main() {
 
 		host := re.Split(req, -1)[1]
 
-		re, _ = regexp.Compile(`\s`)
+		re, _ = regexp.Compile(` `)
 
-		path := re.Split(host, -1)
+		ans := re.Split(host, -1)
 
-		fmt.Println(len(path))
+		path := ans[1]
+
+		fmt.Println(len(ans))
 
 		if path == "http://localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
