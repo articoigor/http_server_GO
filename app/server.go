@@ -37,11 +37,11 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		re, _ := regexp.Compile(`Host:`)
+		re, _ := regexp.Compile(`\\n`)
 
 		splitReq := re.Split(req, -1)
 
-		logStrings(req)
+		logStrings(splitReq[0])
 
 		path := splitReq[0]
 
