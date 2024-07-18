@@ -49,7 +49,7 @@ func main() {
 
 		fmt.Println(path)
 
-		urlRegex, _ := regexp.Compile(`localhost:4221\/+/`)
+		urlRegex, _ := regexp.Compile(`localhost:4221\/*/`)
 
 		validUrl := urlRegex.MatchString(path)
 
