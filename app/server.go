@@ -63,13 +63,21 @@ func processRequest(req string, conn net.Conn) bool {
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
+
+		return true
 	}
 
 	if url == "localhost:4221" && params == "/" {
 		content := ""
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content))
+
+		return true
 	} else {
 		conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
+
+		return true
 	}
+
+	return false
 }
