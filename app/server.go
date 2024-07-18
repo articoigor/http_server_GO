@@ -41,11 +41,12 @@ func main() {
 		fmt.Println(splitReq[0])
 		fmt.Println(splitReq[1])
 
-		splitBySpace, _ := regexp.Compile(` `)
+		splitUrl, _ := regexp.Compile(` `)
+		splitParams, _ := regexp.Compile(` `)
 
-		params := splitBySpace.Split(splitReq[0], -1)[1]
+		params := splitParams.Split(splitReq[0], -1)[1]
 
-		url := splitBySpace.Split(splitReq[1], -1)[1]
+		url := splitUrl.Split(splitReq[1], -1)[1]
 
 		path := url + params
 
