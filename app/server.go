@@ -41,18 +41,16 @@ func main() {
 
 		splitReq := re.Split(req, -1)
 
-		logStrings(splitReq[3])
+		logStrings(splitReq[1])
 
-		path := splitReq[0]
+		path := splitReq[1]
 
 		if path == "http://localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
-		} else {
-			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		}
 
-		// if path == "http://localhost:4221" {
-		// 	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
-		// }
+		if path == "http://localhost:4221" {
+			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+		}
 	}
 }
