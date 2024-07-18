@@ -38,6 +38,8 @@ func main() {
 		splitByNewLine, _ := regexp.Compile("\n")
 
 		splitReq := splitByNewLine.Split(req, -1)
+		fmt.Println(splitReq[0])
+		fmt.Println(splitReq[1])
 
 		splitBySpace, _ := regexp.Compile(` `)
 
@@ -46,8 +48,6 @@ func main() {
 		url := splitBySpace.Split(splitReq[1], -1)[1]
 
 		path := url + params
-
-		fmt.Println(path)
 
 		urlRegex, _ := regexp.Compile(`localhost:4221\/*/`)
 
