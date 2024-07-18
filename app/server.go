@@ -27,8 +27,6 @@ func main() {
 	if err != nil {
 		fmt.Println("Error accepting connection: ", err.Error())
 	} else {
-		defer conn.Close()
-
 		createConnection(conn)
 	}
 
