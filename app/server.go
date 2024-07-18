@@ -36,20 +36,24 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		splitByNewLine, _ := regexp.Compile("\n")
+		processRequest(req, conn)
+	}
+}
 
-		splitReq := splitByNewLine.Split(req, -1)
+func processRequest(req string, conn net.Conn) {
+	splitByNewLine, _ := regexp.Compile("\n")
 
-		splitBySpace, _ := regexp.Compile(` `)
+	splitReq := splitByNewLine.Split(req, -1)
 
-		params := splitBySpace.Split(splitReq[0], -1)[1]
+	splitBySpace, _ := regexp.Compile(` `)
 
-		url := strings.TrimSpace(splitBySpace.Split(splitReq[1], -1)[1])
+	params := splitBySpace.Split(splitReq[0], -1)[1]
 
-		if url == "localhost:4221" && params == "/" {
-			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
-		} else {
-			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
-		}
+	url := strings.TrimSpace(splitBySpace.Split(splitReq[1], -1)[1])
+
+	if url == "localhost:4221" && params == "/" {
+		conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+	} else {
+		conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
 	}
 }
