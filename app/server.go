@@ -5,6 +5,7 @@ import (
 	"net"
 	"os"
 	"regexp"
+	"strings"
 )
 
 // func logStrings(s string) {
@@ -49,10 +50,10 @@ func main() {
 		url := splitUrl.Split(splitReq[1], -1)[1]
 
 		fmt.Println(url)
-		fmt.Println(url == `localhost\:4221`)
+		fmt.Println(strings.TrimRight(url, "/") == `localhost\:4221`)
 		fmt.Println(params == "/")
 
-		if url == "localhost:4221" && len(params) == 1 {
+		if url == "localhost:4221" && params == "/" {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		} else {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
