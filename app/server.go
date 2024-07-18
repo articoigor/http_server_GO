@@ -42,8 +42,6 @@ func createConnection(conn net.Conn) {
 
 	req := string(bytes)
 
-	fmt.Println(req)
-
 	if err != nil {
 		processRequest(req, conn)
 	}
@@ -61,8 +59,6 @@ func checkEcho(params string, conn net.Conn) {
 
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
 
-		fmt.Println(str)
-
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
 	}
 }
@@ -78,7 +74,7 @@ func checkUserAgent(arr []string, conn net.Conn) {
 }
 
 func processRequest(req string, conn net.Conn) {
-	splitReq := regexp.MustCompile("\r\n").Split(req, -1)
+	splitReq := regexp.MustCompile("\n").Split(req, -1)
 
 	spaceSplitter, _ := regexp.Compile(` `)
 
