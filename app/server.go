@@ -7,6 +7,12 @@ import (
 	"regexp"
 )
 
+func logStrings(s string) {
+	fmt.Println("*********************")
+	fmt.Println(s)
+	fmt.Println("*********************")
+}
+
 func main() {
 	fmt.Println("Logs from your program will appear here!")
 
@@ -35,9 +41,7 @@ func main() {
 
 		splitReq := re.Split(req, -1)
 
-		fmt.Println("*********************")
-		fmt.Println(splitReq)
-		fmt.Println("*********************")
+		logStrings(req)
 
 		path := splitReq[0]
 
