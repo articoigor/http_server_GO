@@ -36,7 +36,6 @@ func main() {
 			os.Exit(1)
 		}
 
-		fmt.Println("TESTE")
 		createConnection(conn)
 	}
 }
@@ -48,10 +47,7 @@ func createConnection(conn net.Conn) {
 
 	req := string(bytes)
 
-	fmt.Println("TESTE")
-
 	if err == nil {
-		fmt.Println("TESTE")
 		processRequest(req, conn)
 	}
 }
@@ -85,6 +81,7 @@ func checkUserAgent(arr []string, conn net.Conn) {
 }
 
 func processRequest(req string, conn net.Conn) {
+	fmt.Println("TESTE")
 	splitReq := regexp.MustCompile("\r\n").Split(req, -1)
 
 	spaceSplitter, _ := regexp.Compile(` `)
