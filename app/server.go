@@ -68,9 +68,7 @@ func processRequest(req string, conn net.Conn) bool {
 	}
 
 	if url == "localhost:4221" && params == "/" {
-		content := ""
-
-		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content))
+		conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 
 		return true
 	} else {
