@@ -41,8 +41,7 @@ func main() {
 
 		splitReq := re.Split(req, -1)
 
-		fmt.Println(len(splitReq))
-		logStrings(conn.RemoteAddr().String())
+		logStrings(splitReq[3])
 
 		path := splitReq[0]
 
