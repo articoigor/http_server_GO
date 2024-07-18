@@ -43,10 +43,12 @@ func main() {
 
 		if path == "http://localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
-		}
-
-		if path == "http://localhost:4221" {
+		} else {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		}
+
+		// if path == "http://localhost:4221" {
+		// 	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+		// }
 	}
 }
