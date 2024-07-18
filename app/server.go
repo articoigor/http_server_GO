@@ -49,9 +49,9 @@ func main() {
 		url := splitUrl.Split(splitReq[1], -1)[1]
 
 		fmt.Println(url)
-		fmt.Println(len(params))
+		fmt.Println(params)
 
-		if len(params) == 1 && params == `/` {
+		if url == `localhost:4221` && len(params) == 1 {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		} else {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
