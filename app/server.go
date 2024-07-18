@@ -29,6 +29,8 @@ func main() {
 
 		fmt.Printf("Conection count: %d", i)
 
+		defer conn.Close()
+
 		if err != nil {
 			fmt.Println("Error accepting connection: ", err.Error())
 
