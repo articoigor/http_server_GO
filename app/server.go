@@ -31,8 +31,6 @@ func main() {
 			continue
 		}
 
-		defer conn.Close()
-
 		go createConnection(conn)
 	}
 }
