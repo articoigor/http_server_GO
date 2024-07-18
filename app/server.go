@@ -55,18 +55,20 @@ func main() {
 func createConnection(conn net.Conn) {
 	bytes := make([]byte, 128)
 
-	_, err := conn.Read(bytes)
+	inputLength, err := conn.Read(bytes)
 
 	if err != nil {
 		fmt.Println("Error reading request: ", err.Error())
-	}
+	} else {
+		fmt.Printf("Request data with %d bytes", inputLength)
 
-	req := string(bytes)
+		req := string(bytes)
 
-	fmt.Println(req)
+		fmt.Println(req)
 
-	if err == nil {
-		processRequest(req, conn)
+		if err == nil {
+			processRequest(req, conn)
+		}
 	}
 }
 
