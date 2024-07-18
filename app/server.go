@@ -57,7 +57,7 @@ func createConnection(conn net.Conn, str string) {
 	bytes := make([]byte, 128)
 	fmt.Println(len(bytes))
 	_, err := conn.Read(bytes)
-
+	fmt.Println(len(bytes))
 	req := string(bytes)
 
 	fmt.Println(req)
