@@ -7,11 +7,11 @@ import (
 	"regexp"
 )
 
-func logStrings(s string) {
-	fmt.Println("*********************")
-	fmt.Println(s)
-	fmt.Println("*********************")
-}
+// func logStrings(s string) {
+// 	fmt.Println("*********************")
+// 	fmt.Println(s)
+// 	fmt.Println("*********************")
+// }
 
 func main() {
 	fmt.Println("Logs from your program will appear here!")
@@ -39,11 +39,11 @@ func main() {
 	if err == nil {
 		re, _ := regexp.Compile("\n")
 
-		splitReq := re.Split(req, -1)
+		host := re.Split(req, -1)[1]
 
-		logStrings(splitReq[1])
+		re, _ = regexp.Compile(`\s`)
 
-		path := splitReq[1]
+		path := re.Split(host, -1)[1]
 
 		if path == "http://localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
