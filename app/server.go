@@ -51,7 +51,7 @@ func main() {
 
 		validUrl := urlRegex.MatchString(path)
 
-		if validUrl == true {
+		if validUrl {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		} else {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
