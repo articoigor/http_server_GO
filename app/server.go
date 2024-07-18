@@ -22,22 +22,16 @@ func main() {
 		os.Exit(1)
 	}
 
-	var conn net.Conn
+	conn, err := l.Accept()
 
-	err = nil
+	fmt.Printf("Conection count: %d", 0)
 
-	for i := 0; err == nil; i++ {
-		conn, err = l.Accept()
-
-		fmt.Printf("Conection count: %d", i)
-
-		if err != nil {
-			fmt.Println("Error accepting connection: ", err.Error())
-			os.Exit(1)
-		}
-
-		createConnection(conn)
+	if err != nil {
+		fmt.Println("Error accepting connection: ", err.Error())
+		os.Exit(1)
 	}
+
+	createConnection(conn)
 }
 
 func createConnection(conn net.Conn) {
