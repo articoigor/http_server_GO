@@ -7,11 +7,11 @@ import (
 	"regexp"
 )
 
-// func logStrings(s string) {
-// 	fmt.Println("*********************")
-// 	fmt.Println(s)
-// 	fmt.Println("*********************")
-// }
+func logStrings(s string) {
+	fmt.Println("*********************")
+	fmt.Println(s)
+	fmt.Println("*********************")
+}
 
 func main() {
 	fmt.Println("Logs from your program will appear here!")
@@ -35,6 +35,8 @@ func main() {
 	_, err = conn.Read(bytes)
 
 	req := string(bytes)
+
+	logStrings(req)
 
 	if err == nil {
 		re, _ := regexp.Compile("\n")
