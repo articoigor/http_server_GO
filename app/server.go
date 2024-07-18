@@ -47,7 +47,7 @@ func main() {
 
 		path := ans[1]
 
-		fmt.Println(len(ans))
+		fmt.Println(path)
 
 		if path == "http://localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
