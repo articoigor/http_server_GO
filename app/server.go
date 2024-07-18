@@ -58,6 +58,15 @@ func checkEcho(params string, conn net.Conn) {
 	}
 }
 
+func checkUserAgent(agent string, conn net.Conn) {
+	if agent != "" {
+
+		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
+
+		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
+	}
+}
+
 func processRequest(req string, conn net.Conn) {
 	splitReq := regexp.MustCompile("\r\n").Split(req, -1)
 
@@ -67,7 +76,11 @@ func processRequest(req string, conn net.Conn) {
 
 	url := strings.TrimSpace(spaceSplitter.Split(splitReq[1], -1)[1])
 
+	userAgent := spaceSplitter.Split(splitReq[2], -1)[1]
+
 	checkEcho(params, conn)
+
+	checkUserAgent(userAgent, conn)
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
