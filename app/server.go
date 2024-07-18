@@ -32,7 +32,7 @@ func main() {
 
 	fmt.Println(req)
 	if err == nil {
-		re, _ := regexp.Compile(`\-v`)
+		re, _ := regexp.Compile(`\\n`)
 
 		splitReq := re.Split(req, -1)
 
