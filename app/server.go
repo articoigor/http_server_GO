@@ -62,6 +62,8 @@ func processRequest(req string, conn net.Conn) bool {
 
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
 
+		fmt.Println(str)
+
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
 
 		return true
@@ -76,6 +78,4 @@ func processRequest(req string, conn net.Conn) bool {
 
 		return true
 	}
-
-	return false
 }
