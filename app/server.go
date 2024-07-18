@@ -47,11 +47,7 @@ func main() {
 
 		params := splitParams.Split(splitReq[0], -1)[1]
 
-		url := splitUrl.Split(splitReq[1], -1)[1]
-
-		fmt.Println(strings.Trim(url, "/"))
-		fmt.Println(fmt.Println(len(strings.TrimSpace(url)), len("localhost:4221")))
-		fmt.Println(params == "/")
+		url := strings.TrimSpace(splitUrl.Split(splitReq[1], -1)[1])
 
 		if url == "localhost:4221" && params == "/" {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
