@@ -58,7 +58,7 @@ func processRequest(req string, conn net.Conn) bool {
 	if echo != "" {
 		contentRegex, _ := regexp.Compile("/")
 
-		content := contentRegex.Split(params, -1)[1]
+		content := contentRegex.Split(params, -1)[2]
 
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
 
