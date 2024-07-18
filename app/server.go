@@ -31,12 +31,12 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		re, _ := regexp.Compile(`\\n`)
+		re, _ := regexp.Compile(`Host:`)
 
 		splitReq := re.Split(req, -1)
 
 		fmt.Println("*********************")
-		fmt.Println(req)
+		fmt.Println(splitReq)
 		fmt.Println("*********************")
 
 		path := splitReq[0]
