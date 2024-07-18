@@ -81,14 +81,13 @@ func processRequest(req string, conn net.Conn) {
 	params := spaceSplitter.Split(splitReq[0], -1)[1]
 
 	url := strings.TrimSpace(spaceSplitter.Split(splitReq[1], -1)[1])
+	fmt.Println(url, params)
 
 	userAgent := spaceSplitter.Split(splitReq[2], -1)
 
 	checkEcho(params, conn)
 
 	checkUserAgent(userAgent, conn)
-
-	fmt.Println(url)
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
