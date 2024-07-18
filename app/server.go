@@ -24,9 +24,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	arr := make([]byte, 128)
+	bytes := make([]byte, 128)
 
-	bytes, err := conn.Read(arr)
+	_, err = conn.Read(bytes)
 
 	req := string(bytes)
 
@@ -35,7 +35,7 @@ func main() {
 
 		splitReq := re.Split(req, -1)
 
-		fmt.Sprintln(splitReq)
+		fmt.Sprintln(req)
 
 		path := splitReq[1]
 
