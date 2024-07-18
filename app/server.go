@@ -81,7 +81,7 @@ func processRequest(req string, conn net.Conn) {
 	params := spaceSplitter.Split(splitReq[0], -1)[1]
 
 	url := strings.TrimSpace(spaceSplitter.Split(splitReq[1], -1)[1])
-	fmt.Println(url, params)
+	fmt.Println(splitReq)
 
 	userAgent := spaceSplitter.Split(splitReq[2], -1)
 
