@@ -22,11 +22,20 @@ func main() {
 		os.Exit(1)
 	}
 
-	conn, err := l.Accept()
+	var conn net.Conn
 
-	if err != nil {
-		fmt.Println("Error accepting connection: ", err.Error())
-	} else {
+	err = nil
+
+	for i := 0; err == nil; i++ {
+		conn, err = l.Accept()
+
+		fmt.Printf("Conection count: %d", i)
+
+		if err != nil {
+			fmt.Println("Error accepting connection: ", err.Error())
+			os.Exit(1)
+		}
+
 		createConnection(conn)
 	}
 }
@@ -34,20 +43,12 @@ func main() {
 func createConnection(conn net.Conn) {
 	bytes := make([]byte, 128)
 
-	inputLength, err := conn.Read(bytes)
+	_, err := conn.Read(bytes)
+
+	req := string(bytes)
 
 	if err != nil {
-		fmt.Println("Error reading request: ", err.Error())
-	} else {
-		fmt.Printf("Request data with %d bytes", inputLength)
-
-		req := string(bytes)
-
-		fmt.Println(req)
-
-		if err == nil {
-			processRequest(req, conn)
-		}
+		processRequest(req, conn)
 	}
 }
 
@@ -62,6 +63,8 @@ func checkEcho(params string, conn net.Conn) {
 		content := contentRegex.Split(params, -1)[2]
 
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
+
+		fmt.Println(str)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
 	}
@@ -78,7 +81,6 @@ func checkUserAgent(arr []string, conn net.Conn) {
 }
 
 func processRequest(req string, conn net.Conn) {
-	fmt.Println("TESTE")
 	splitReq := regexp.MustCompile("\r\n").Split(req, -1)
 
 	spaceSplitter, _ := regexp.Compile(` `)
