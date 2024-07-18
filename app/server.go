@@ -74,16 +74,18 @@ func checkUserAgent(arr []string, conn net.Conn) {
 }
 
 func processRequest(req string, conn net.Conn) {
-	splitReq := regexp.MustCompile("\n").Split(req, -1)
+	reqRegex, _ := regexp.Compile("\n")
+
+	reqComponents := reqRegex.Split(req, -1)
+	fmt.Println(reqComponents)
 
 	spaceSplitter, _ := regexp.Compile(` `)
 
-	params := spaceSplitter.Split(splitReq[0], -1)[1]
+	params := spaceSplitter.Split(reqComponents[0], -1)[1]
 
-	url := strings.TrimSpace(spaceSplitter.Split(splitReq[1], -1)[1])
-	fmt.Println(splitReq)
+	url := strings.TrimSpace(spaceSplitter.Split(reqComponents[1], -1)[1])
 
-	userAgent := spaceSplitter.Split(splitReq[2], -1)
+	userAgent := spaceSplitter.Split(reqComponents[2], -1)
 
 	checkEcho(params, conn)
 
