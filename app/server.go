@@ -45,9 +45,7 @@ func main() {
 
 		re, _ = regexp.Compile(` `)
 
-		ans := re.Split(host, -1)
-
-		path := ans[1]
+		path := re.Split(host, -1)[1]
 
 		fmt.Println(path)
 
