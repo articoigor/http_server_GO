@@ -24,11 +24,11 @@ func main() {
 
 	conn, err := l.Accept()
 
-	defer conn.Close()
-
 	if err != nil {
 		fmt.Println("Error accepting connection: ", err.Error())
 	} else {
+		defer conn.Close()
+
 		createConnection(conn, "TESTE")
 	}
 
@@ -55,7 +55,7 @@ func main() {
 func createConnection(conn net.Conn, str string) {
 	fmt.Println(str)
 	bytes := make([]byte, 128)
-
+	fmt.Println(len(bytes))
 	_, err := conn.Read(bytes)
 
 	req := string(bytes)
