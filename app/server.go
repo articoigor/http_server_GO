@@ -36,6 +36,8 @@ func main() {
 		splitReq := re.Split(req, -1)
 
 		fmt.Println("*********************")
+		fmt.Println(req)
+		fmt.Println("*********************")
 
 		path := splitReq[0]
 
