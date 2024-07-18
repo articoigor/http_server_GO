@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"regexp"
@@ -22,16 +23,16 @@ func main() {
 		os.Exit(1)
 	}
 
-	conn, err := l.Accept()
+	for {
+		conn, err := l.Accept()
 
-	fmt.Printf("Conection count: %d", 0)
+		if err != nil {
+			log.Println("Error accepting: ", err.Error())
+			continue
+		}
 
-	if err != nil {
-		fmt.Println("Error accepting connection: ", err.Error())
-		os.Exit(1)
+		go createConnection(conn)
 	}
-
-	createConnection(conn)
 }
 
 func createConnection(conn net.Conn) {
