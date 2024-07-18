@@ -29,6 +29,8 @@ func main() {
 
 		fmt.Printf("Conection count: %d", i)
 
+		fmt.Println(conn)
+
 		defer conn.Close()
 
 		if err != nil {
