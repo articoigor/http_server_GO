@@ -40,7 +40,7 @@ func main() {
 	}
 }
 
-func processRequest(req string, conn net.Conn) {
+func processRequest(req string, conn net.Conn) bool {
 	splitByNewLine, _ := regexp.Compile("\n")
 
 	splitReq := splitByNewLine.Split(req, -1)
@@ -51,8 +51,24 @@ func processRequest(req string, conn net.Conn) {
 
 	url := strings.TrimSpace(splitBySpace.Split(splitReq[1], -1)[1])
 
+	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
+
+	echo := echoRegex.FindString(params)
+
+	if echo != "" {
+		contentRegex, _ := regexp.Compile("/")
+
+		content := contentRegex.Split(params, -1)[1]
+
+		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
+
+		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
+	}
+
 	if url == "localhost:4221" && params == "/" {
-		conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+		content := ""
+
+		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content))
 	} else {
 		conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
 	}
