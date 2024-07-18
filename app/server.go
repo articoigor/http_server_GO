@@ -58,8 +58,9 @@ func checkEcho(params string, conn net.Conn) {
 	}
 }
 
-func checkUserAgent(agent string, conn net.Conn) {
-	if agent != "" {
+func checkUserAgent(arr []string, conn net.Conn) {
+	if len(arr) > 1 {
+		agent := arr[1]
 
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
 
@@ -76,7 +77,7 @@ func processRequest(req string, conn net.Conn) {
 
 	url := strings.TrimSpace(spaceSplitter.Split(splitReq[1], -1)[1])
 
-	userAgent := spaceSplitter.Split(splitReq[2], -1)[1]
+	userAgent := spaceSplitter.Split(splitReq[2], -1)
 
 	checkEcho(params, conn)
 
