@@ -42,7 +42,7 @@ func createConnection(conn net.Conn) {
 
 	req := string(bytes)
 
-	fmt.Println(len(req))
+	fmt.Println(req)
 
 	if err != nil {
 		go processRequest(req, conn)
