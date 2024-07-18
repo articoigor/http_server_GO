@@ -22,9 +22,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	var theresConns bool = true
+	theresConns := true
 
-	for i := 0; theresConns == true; i++ {
+	for i := 0; theresConns; i++ {
 		conn, err := l.Accept()
 
 		fmt.Printf("Conection count: %d", i)
