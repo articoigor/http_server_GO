@@ -50,7 +50,7 @@ func main() {
 
 		path := fmt.Sprintf("%s%s", url, params)
 		fmt.Println(url)
-		fmt.Println(path)
+		fmt.Println(params)
 
 		fmt.Println(path)
 
