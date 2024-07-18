@@ -30,6 +30,7 @@ func main() {
 
 	req := string(bytes)
 
+	fmt.Println(req)
 	if err == nil {
 		re, _ := regexp.Compile(`\-v`)
 
