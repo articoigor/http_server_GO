@@ -51,7 +51,7 @@ func main() {
 		fmt.Println(url)
 		fmt.Println(len(params))
 
-		if len(params) > 1 && params == `/` {
+		if len(params) == 1 && params == `/` {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 		} else {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
