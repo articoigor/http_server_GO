@@ -5,14 +5,13 @@ import (
 	"net"
 	"os"
 	"regexp"
-	"strconv"
 )
 
-func logStrings(s string) {
-	fmt.Println("*********************")
-	fmt.Println(s)
-	fmt.Println("*********************")
-}
+// func logStrings(s string) {
+// 	fmt.Println("*********************")
+// 	fmt.Println(s)
+// 	fmt.Println("*********************")
+// }
 
 func main() {
 	l, err := net.Listen("tcp", "0.0.0.0:4221")
@@ -42,14 +41,11 @@ func main() {
 
 		splitBySpace, _ := regexp.Compile(` `)
 
-		logStrings("Split into " + strconv.Itoa(len(splitReq)))
-		url := splitBySpace.Split(splitReq[1], -1)[1]
-
 		params := splitBySpace.Split(splitReq[0], -1)[1]
 
-		path := url + params
+		url := splitBySpace.Split(splitReq[1], -1)[1]
 
-		logStrings(path)
+		path := url + params
 
 		if path == "localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
