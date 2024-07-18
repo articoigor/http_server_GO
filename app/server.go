@@ -49,6 +49,8 @@ func main() {
 
 		path := url + params
 
+		fmt.Println(path)
+
 		urlRegex, _ := regexp.Compile(`localhost:4221\/*/`)
 
 		validUrl := urlRegex.MatchString(path)
