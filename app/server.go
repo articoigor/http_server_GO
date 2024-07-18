@@ -22,16 +22,28 @@ func main() {
 		os.Exit(1)
 	}
 
-	conn, err := l.Accept()
+	var conn net.Conn
 
-	if err != nil {
-		fmt.Println("Error accepting connection: ", err.Error())
-		os.Exit(1)
+	err = nil
+
+	for i := 0; err == nil; i++ {
+		conn, err = l.Accept()
+
+		fmt.Printf("Conection count: %d", i)
+
+		if err != nil {
+			fmt.Println("Error accepting connection: ", err.Error())
+			os.Exit(1)
+		}
+
+		createConnection(conn)
 	}
+}
 
+func createConnection(conn net.Conn) {
 	bytes := make([]byte, 128)
 
-	_, err = conn.Read(bytes)
+	_, err := conn.Read(bytes)
 
 	req := string(bytes)
 
