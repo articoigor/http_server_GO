@@ -29,7 +29,7 @@ func main() {
 	} else {
 		defer conn.Close()
 
-		createConnection(conn, "TESTE")
+		createConnection(conn)
 	}
 
 	// theresConns := true
@@ -52,12 +52,15 @@ func main() {
 	// }
 }
 
-func createConnection(conn net.Conn, str string) {
-	fmt.Println(str)
+func createConnection(conn net.Conn) {
 	bytes := make([]byte, 128)
-	fmt.Println(len(bytes))
+
 	_, err := conn.Read(bytes)
-	fmt.Println(len(bytes))
+
+	if err != nil {
+		fmt.Println("Error reading request: ", err.Error())
+	}
+
 	req := string(bytes)
 
 	fmt.Println(req)
