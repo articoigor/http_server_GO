@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"regexp"
 	"strings"
 )
 
@@ -32,15 +31,11 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		splitReq := strings.Split(req, "-v")
+		splitReq := strings.Split(req, " ")
 
 		fmt.Println(splitReq)
 
-		re, _ := regexp.Compile(`(GET|POST)\s(.*)\s+`)
-
-		details := re.FindString(splitReq[1])
-
-		path := strings.Split(details, " ")[1]
+		path := splitReq[3]
 
 		if path == "http://localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
