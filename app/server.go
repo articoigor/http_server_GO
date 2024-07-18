@@ -40,7 +40,7 @@ func main() {
 		splitReq := splitByNewLine.Split(req, -1)
 
 		splitBySpace, _ := regexp.Compile(` `)
-		fmt.Sprintln(len(splitReq))
+		logStrings(string(len(splitReq)))
 		url := splitBySpace.Split(splitReq[1], -1)[1]
 
 		params := splitBySpace.Split(splitReq[0], -1)[1]
