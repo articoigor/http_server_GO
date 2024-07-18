@@ -41,6 +41,7 @@ func main() {
 }
 
 func createConnection(conn net.Conn) {
+	fmt.Println(conn)
 	bytes := make([]byte, 128)
 
 	_, err := conn.Read(bytes)
