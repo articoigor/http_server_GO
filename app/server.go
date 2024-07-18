@@ -37,10 +37,11 @@ func main() {
 	req := string(bytes)
 
 	if err == nil {
-		re, _ := regexp.Compile(`\\n`)
+		re, _ := regexp.Compile("\n")
 
 		splitReq := re.Split(req, -1)
 
+		fmt.Println(len(splitReq))
 		logStrings(conn.RemoteAddr().String())
 
 		path := splitReq[0]
