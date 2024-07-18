@@ -37,7 +37,7 @@ func main() {
 
 		fmt.Sprintf("Req as string: %s", req)
 
-		path := splitReq[1]
+		path := splitReq[0]
 
 		if path == "http://localhost:4221/abcdefg" {
 			conn.Write([]byte("HTTP/1.1 404 Not Found\r\n\r\n"))
