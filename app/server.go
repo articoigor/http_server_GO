@@ -31,7 +31,9 @@ func main() {
 			continue
 		}
 
-		createConnection(conn)
+		defer conn.Close()
+
+		go createConnection(conn)
 	}
 }
 
@@ -41,9 +43,9 @@ func createConnection(conn net.Conn) {
 	_, err := conn.Read(bytes)
 
 	req := string(bytes)
-	fmt.Println(req)
+
 	if err != nil {
-		processRequest(req, conn)
+		go processRequest(req, conn)
 	}
 }
 
@@ -88,9 +90,9 @@ func processRequest(req string, conn net.Conn) {
 
 	userAgent := spaceSplitter.Split(reqComponents[2], -1)
 
-	checkEcho(params, conn)
+	go checkEcho(params, conn)
 
-	checkUserAgent(userAgent, conn)
+	go checkUserAgent(userAgent, conn)
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
