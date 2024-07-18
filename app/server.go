@@ -48,7 +48,7 @@ func main() {
 
 		url := splitUrl.Split(splitReq[1], -1)[1]
 
-		fmt.Println(url == `localhost:4221`)
+		fmt.Println(url == "localhost:4221")
 		fmt.Println(len(params) == 1)
 
 		if url == "localhost:4221" && len(params) == 1 {
