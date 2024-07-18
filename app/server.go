@@ -49,7 +49,7 @@ func main() {
 		url := splitUrl.Split(splitReq[1], -1)[1]
 
 		fmt.Println(url)
-		fmt.Println(params)
+		fmt.Println(len(params))
 
 		if len(params) > 1 && params == `/` {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
