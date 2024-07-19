@@ -72,15 +72,11 @@ func processRequest(req string, conn net.Conn) {
 func processPostRequest(components []string, params string, conn net.Conn) {
 	fileNameRegex, _ := regexp.Compile(`/files/(.*)`)
 
-	fmt.Println(params)
+	fileName := fileNameRegex.Split(params, -1)[1]
 
-	file := fileNameRegex.Split(params, -1)
+	fmt.Printf("Processing POST request, uploading file %s!", fileName)
 
-	name := file[2]
-
-	fmt.Printf("Processing POST request, uploading file %s!", name)
-
-	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", name)
+	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", fileName)
 
 	err := saveFile(directory, components[6])
 
