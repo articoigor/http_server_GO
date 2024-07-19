@@ -119,12 +119,22 @@ func checkFile(params string, conn net.Conn) bool {
 
 		content := contentRegex.Split(params, -1)[2]
 
-		_, err := os.Open("/tmp/" + content)
+		file, err := os.Open("/tmp/" + content)
 
 		if err != nil {
 			fmt.Println("Error opening file: " + err.Error())
 			return false
 		}
+
+		data := make([]byte, 100)
+
+		count, err := file.Read(data)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("read %d bytes: %q\n", count, data[:count])
 
 		fmt.Println(content)
 
