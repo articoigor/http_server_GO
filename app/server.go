@@ -32,7 +32,7 @@ func main() {
 }
 
 func createConnection(conn net.Conn) {
-	bytes := make([]byte, 512)
+	bytes := make([]byte, 256)
 
 	_, err := conn.Read(bytes)
 
@@ -108,7 +108,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 	echo := echoRegex.FindString(params)
 
 	if echo != "" {
-		encoder, encodedBody := "", ""
+		encoder, encodedBody := "", components[len(components)-1]
 
 		if len(components) == 5 {
 			encoder = regex.Split(components[2], -1)[1]
