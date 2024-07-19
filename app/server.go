@@ -58,12 +58,14 @@ func processRequest(req string, conn net.Conn) {
 
 	method, params := requestDetails[0], requestDetails[1]
 
+	fmt.Println(method, params)
+
 	switch method {
 	case "GET":
 		fmt.Println("Processing GET request !")
 		processGetRequest(reqComponents, params, *spaceSplitter, conn)
 	case "POST":
-		fmt.Println("Processing GET request !")
+		fmt.Println("Processing POST request !")
 		processPostRequest(reqComponents, params, conn)
 	}
 }
