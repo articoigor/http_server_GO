@@ -64,14 +64,16 @@ func processRequest(req string, conn net.Conn) {
 		returnMessage = "HTTP/1.1 404 Not Found\r\n\r\n"
 	}
 
-	go checkEcho(params, conn)
+	isEcho := checkEcho(params, conn)
 
-	go checkUserAgent(params, reqComponents, conn)
+	isUserAgent := checkUserAgent(params, reqComponents, conn)
 
-	conn.Write([]byte(returnMessage))
+	if !isEcho && !isUserAgent {
+		conn.Write([]byte(returnMessage))
+	}
 }
 
-func checkEcho(params string, conn net.Conn) {
+func checkEcho(params string, conn net.Conn) bool {
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
@@ -84,15 +86,23 @@ func checkEcho(params string, conn net.Conn) {
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
+
+		return true
 	}
+
+	return false
 }
 
-func checkUserAgent(param string, agents []string, conn net.Conn) {
+func checkUserAgent(param string, agents []string, conn net.Conn) bool {
 	if strings.TrimSpace(param) == "/user-agent" {
 		regex, _ := regexp.Compile(` `)
 
 		agent := regex.Split(agents[2], -1)[1]
 
 		conn.Write([]byte(fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %d\r\n%s", len(agent), agent)))
+
+		return true
 	}
+
+	return false
 }
