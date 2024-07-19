@@ -84,7 +84,7 @@ func processRequest(req string, conn net.Conn) {
 
 	url := strings.TrimSpace(spaceSplitter.Split(reqComponents[1], -1)[1])
 
-	agent := spaceSplitter.Split(reqComponents[2], -1)[1]
+	agent := " TESTE"
 
 	go checkEcho(params, conn)
 
