@@ -68,6 +68,8 @@ func processRequest(req string, conn net.Conn) {
 
 	go checkUserAgent(params, reqComponents, &returnMessage)
 
+	fmt.Println(returnMessage)
+
 	conn.Write([]byte(returnMessage))
 }
 
