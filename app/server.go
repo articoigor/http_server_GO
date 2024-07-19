@@ -6,7 +6,6 @@ import (
 	"net"
 	"os"
 	"regexp"
-	"strings"
 )
 
 // func logStrings(s string) {
@@ -63,7 +62,7 @@ func checkEcho(params string, conn net.Conn) {
 	}
 }
 
-func checkUserAgent(param string, agentInput string, conn net.Conn) {
+func checkUserAgent(param string, agent string, conn net.Conn) {
 	if param == "/user-agent" {
 		agent := regexp.MustCompile("\n").Split(agentInput, -1)[1]
 
@@ -84,11 +83,13 @@ func processRequest(req string, conn net.Conn) {
 
 	params := spaceSplitter.Split(reqComponents[0], -1)[1]
 
-	url := strings.TrimSpace(spaceSplitter.Split(reqComponents[1], -1)[1])
+	url := spaceSplitter.Split(reqComponents[1], -1)[1]
+
+	agent := spaceSplitter.Split(reqComponents[2], -1)[1]
 
 	go checkEcho(params, conn)
 
-	go checkUserAgent(params, reqComponents[2], conn)
+	go checkUserAgent(params, agent, conn)
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
