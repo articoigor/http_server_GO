@@ -60,7 +60,7 @@ func processRequest(req string, conn net.Conn) {
 
 	go checkEcho(params, conn)
 
-	go checkUserAgent(params, reqComponents, conn)
+	go checkUserAgent(params, reqComponents, *spaceSplitter, conn)
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
@@ -90,6 +90,7 @@ func checkEcho(params string, conn net.Conn) {
 func checkUserAgent(param string, agents []string, regex regexp.Regexp, conn net.Conn) {
 	if param == "/user-agent" {
 		agent := strings.TrimSpace(regex.Split(agents[2], -1)[1])
+
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
 
 		fmt.Sprintln(str)
