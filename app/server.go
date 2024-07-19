@@ -89,7 +89,7 @@ func checkEcho(params string, conn net.Conn) {
 
 func checkUserAgent(param string, agents []string, regex regexp.Regexp, conn net.Conn) {
 	if param == "/user-agent" {
-		agent := strings.TrimSpace(regex.Split(agents[2], -1)[1])
+		agent := regex.Split(agents[2], -1)[1]
 
 		fmt.Sprintln(agent)
 
