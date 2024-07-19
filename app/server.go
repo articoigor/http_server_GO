@@ -104,9 +104,10 @@ func checkUserAgent(param string, agents []string, conn net.Conn) bool {
 
 		content := "Content-Length: " + length + "\r\n" + agent
 
-		fmt.Println(content)
+		returnMessage := "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content
+		fmt.Println(returnMessage)
 
-		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content))
+		conn.Write([]byte(returnMessage))
 
 		return true
 	}
