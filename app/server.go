@@ -109,7 +109,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 
 	if echo != "" {
 		bodyRegex, _ := regexp.Compile("/")
-		arr := regex.Split(components[2], -1)
+		arr := bodyRegex.Split(echo, -1)
 
 		test := arr[len(arr)-1]
 
