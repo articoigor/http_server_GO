@@ -64,8 +64,10 @@ func processRequest(req string, conn net.Conn) {
 		returnMessage = "HTTP/1.1 404 Not Found\r\n\r\n"
 	}
 
+	fmt.Println("Before Echo: " + returnMessage)
 	go checkEcho(params, &returnMessage)
 
+	fmt.Println("Before UserAgent: " + returnMessage)
 	go checkUserAgent(params, reqComponents, &returnMessage)
 
 	fmt.Println(returnMessage)
