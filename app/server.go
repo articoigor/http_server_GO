@@ -64,12 +64,12 @@ func checkEcho(params string, conn net.Conn) {
 }
 
 func checkUserAgent(param string, agentInput string, conn net.Conn) {
-	fmt.Println(param)
 	if param == "/user-agent" {
-		fmt.Println("ENTROU")
 		agent := regexp.MustCompile("\n").Split(agentInput, -1)[1]
 
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
+
+		fmt.Sprintln(str)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
 	}
