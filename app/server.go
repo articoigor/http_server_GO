@@ -101,7 +101,7 @@ func checkUserAgent(param string, agents []string, conn net.Conn) bool {
 
 		fmt.Println(agent)
 
-		content := fmt.Sprintf("Content-Length: %d\r\n%s", len(agent), agent)
+		content := fmt.Sprintf(`Content-Length: %d\r\n%s`, len(agent), agent)
 
 		fmt.Println(content)
 
