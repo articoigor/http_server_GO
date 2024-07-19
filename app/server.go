@@ -106,9 +106,9 @@ func checkEcho(components []string, params string, conn net.Conn) bool {
 	echo := echoRegex.FindString(params)
 
 	if echo != "" {
-		encoder := components[4]
+		encoder := components[3]
 
-		body := components[5]
+		body := components[4]
 
 		content, _ := compressString(body)
 
