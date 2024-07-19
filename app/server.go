@@ -109,8 +109,12 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 
 	if echo != "" {
 		bodyRegex, _ := regexp.Compile("/")
-		fmt.Println(echo)
-		encoder, encodedBody := "", bodyRegex.Split(echo, -1)[1]
+		arr := regex.Split(components[2], -1)
+
+		encoder = arr[len(arr)-1]
+
+		fmt.Println(encoder)
+		encoder, encodedBody := "", bodyRegex.Split(echo, -1)[]
 
 		if len(components) >= 3 {
 			arr := regex.Split(components[2], -1)
