@@ -99,6 +99,8 @@ func checkUserAgent(param string, agents []string, conn net.Conn) bool {
 
 		agent := regex.Split(agents[2], -1)[1]
 
+		fmt.Println(agent)
+
 		conn.Write([]byte(fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %d\r\n%s", len(agent), agent)))
 
 		return true
