@@ -42,6 +42,9 @@ func createConnection(conn net.Conn) {
 
 	req := string(bytes)
 
+	fmt.Println("Req: ")
+	fmt.Println(req)
+
 	if err == nil {
 		go processRequest(req, conn)
 	}
@@ -57,8 +60,6 @@ func processRequest(req string, conn net.Conn) {
 	requestDetails := spaceSplitter.Split(reqComponents[0], -1)
 
 	method, params := requestDetails[0], requestDetails[1]
-
-	fmt.Println(req)
 
 	switch method {
 	case "GET":
