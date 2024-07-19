@@ -112,10 +112,10 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 
 		encoder, encodedBody := "", bodyRegex.Split(echo, -1)[2]
 
-		encoderRegex, _ := regexp.Compile("Accept-Encoding")
+		encoderRegex, _ := regexp.Compile("Accept-Encoding:")
 
 		if len(components) >= 3 && encoderRegex.MatchString(components[2]) {
-			arr := regex.Split(components[2], -1)[1]
+			arr := encoderRegex.Split(components[2], -1)[1]
 
 			commaRegex, _ := regexp.Compile(",")
 
