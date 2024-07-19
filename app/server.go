@@ -69,14 +69,11 @@ func processRequest(req string, conn net.Conn) {
 }
 
 func processPostRequest(components []string, params string, conn net.Conn) {
-	fmt.Println(params)
 	fileNameRegex, _ := regexp.Compile(`/`)
 
 	name := fileNameRegex.Split(params, -1)[2]
 
 	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", name)
-
-	fmt.Println(directory)
 
 	err := saveFile(directory, components[5])
 
@@ -176,5 +173,5 @@ func locateFile(directory string) string {
 }
 
 func saveFile(directory, content string) error {
-	return os.WriteFile(directory, []byte(content), os.ModeAppend)
+	return os.WriteFile(directory, []byte(strings.TrimSpace(content)), os.ModeAppend)
 }
