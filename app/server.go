@@ -47,6 +47,32 @@ func createConnection(conn net.Conn) {
 	}
 }
 
+func processRequest(req string, conn net.Conn) {
+	reqRegex, _ := regexp.Compile("\n")
+
+	reqComponents := reqRegex.Split(req, -1)
+
+	spaceSplitter, _ := regexp.Compile(` `)
+
+	params := spaceSplitter.Split(reqComponents[0], -1)[1]
+
+	url := strings.TrimSpace(spaceSplitter.Split(reqComponents[1], -1)[1])
+
+	agent := strings.TrimSpace(spaceSplitter.Split(reqComponents[2], -1)[1])
+
+	go checkEcho(params, conn)
+
+	go checkUserAgent(params, agent, conn)
+
+	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
+
+	if url != "localhost:4221" || params != "/" {
+		returnMessage = "HTTP/1.1 404 Not Found\r\n\r\n"
+	}
+
+	conn.Write([]byte(returnMessage))
+}
+
 func checkEcho(params string, conn net.Conn) {
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
@@ -71,30 +97,4 @@ func checkUserAgent(param string, agent string, conn net.Conn) {
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
 	}
-}
-
-func processRequest(req string, conn net.Conn) {
-	reqRegex, _ := regexp.Compile("\r\n")
-
-	reqComponents := reqRegex.Split(req, -1)
-
-	spaceSplitter, _ := regexp.Compile(` `)
-
-	params := spaceSplitter.Split(reqComponents[0], -1)[1]
-
-	url := strings.TrimSpace(spaceSplitter.Split(reqComponents[1], -1)[1])
-
-	agent := " TESTE"
-
-	go checkEcho(params, conn)
-
-	go checkUserAgent(params, agent, conn)
-
-	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
-
-	if url != "localhost:4221" || params != "/" {
-		returnMessage = "HTTP/1.1 404 Not Found\r\n\r\n"
-	}
-
-	conn.Write([]byte(returnMessage))
 }
