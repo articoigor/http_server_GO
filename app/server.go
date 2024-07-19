@@ -109,7 +109,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 
 	if echo != "" {
 		encoder, encodedBody := "", ""
-
+		fmt.Println(len(components))
 		if len(components) > 3 {
 			encoder = regex.Split(components[2], -1)[1]
 
