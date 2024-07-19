@@ -104,6 +104,7 @@ func checkEcho(components []string, params string, conn net.Conn) bool {
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
+	fmt.Println(echo)
 
 	if echo != "" {
 		encoder := components[3]
