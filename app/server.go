@@ -141,6 +141,8 @@ func checkEcho(components []string, params string, conn net.Conn) bool {
 
 		str += fmt.Sprintf("Content-Type: text/plain\r\nContent-Length: %d\r\n\r\n%s", len(encodedBody), encodedBody)
 
+		fmt.Sprintln(str)
+
 		conn.Write([]byte("HTTP/1.1 200 OK\r\n" + str))
 
 		return true
