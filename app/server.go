@@ -42,9 +42,6 @@ func createConnection(conn net.Conn) {
 
 	req := string(bytes)
 
-	fmt.Println("Req: ")
-	fmt.Println(req)
-
 	if err == nil {
 		go processRequest(req, conn)
 	}
@@ -81,7 +78,7 @@ func processPostRequest(components []string, params string, conn net.Conn) {
 	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", fileName)
 
 	fmt.Println("File content: ")
-	fmt.Println(components[3])
+	fmt.Println(len(components))
 	err := saveFile(directory, components[3])
 
 	if err == nil {
