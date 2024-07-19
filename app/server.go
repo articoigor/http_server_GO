@@ -121,7 +121,7 @@ func checkFile(params string, conn net.Conn) bool {
 
 		file, _ := locateFile("/tmp/data/codecrafters.io/http-server-tester/" + content)
 
-		if file != " " {
+		if file != "" {
 			str := fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: %d\r\n\r\n%s", len(file), file)
 
 			conn.Write([]byte(str))
