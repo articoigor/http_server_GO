@@ -110,6 +110,8 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 	if echo != "" {
 		encoder, encodedBody := "", components[len(components)-1]
 
+		fmt.Println("Last row: " + components[len(components)-1])
+
 		if len(components) == 5 {
 			encoder = regex.Split(components[2], -1)[1]
 
