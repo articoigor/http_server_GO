@@ -60,7 +60,7 @@ func processRequest(req string, conn net.Conn) {
 
 	go checkEcho(params, conn)
 
-	go checkUserAgent(params, reqComponents, *spaceSplitter, conn)
+	go checkUserAgent(params, reqComponents, conn)
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
