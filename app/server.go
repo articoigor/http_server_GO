@@ -106,20 +106,16 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
-	fmt.Println(echo)
+
 	if echo != "" {
 		bodyRegex, _ := regexp.Compile("/")
 
-		fmt.Println(len(bodyRegex.Split(echo, -1)))
-		fmt.Println(bodyRegex.Split(echo, -1)[2])
-		encoder, encodedBody := "", bodyRegex.Split(echo, -1)[1]
+		encoder, encodedBody := "", bodyRegex.Split(echo, -1)[2]
 
 		if len(components) >= 3 {
-			arr := regex.Split(components[2], -1)
+			encoder = "gzip"
 
-			encoder = arr[len(arr)-1]
-
-			fmt.Println(encoder)
+			encodedBody = components[4]
 		}
 
 		var str string
