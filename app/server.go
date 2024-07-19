@@ -115,11 +115,11 @@ func checkFile(params string, conn net.Conn) bool {
 	filePath := fileRegex.FindString(params)
 
 	if filePath != "" {
-		// contentRegex, _ := regexp.Compile("/")
+		contentRegex, _ := regexp.Compile("/")
 
-		// _ := contentRegex.Split(params, -1)[2]
+		content := contentRegex.Split(params, -1)[2]
 
-		getDirectoriesInDirectory("/tmp/data/codecrafters.io/http-server-tester")
+		findFile("/tmp/data/codecrafters.io/http-server-tester/" + content)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: 14\r\n\r\n Hello, World!"))
 
@@ -129,18 +129,12 @@ func checkFile(params string, conn net.Conn) bool {
 	return false
 }
 
-func getDirectoriesInDirectory(directory string) ([]string, error) {
-	var directories []string
-	items, err := os.ReadDir(directory)
-	if err != nil {
-		return nil, err
-	}
+func findFile(directory string) (string, error) {
+	item, err := os.ReadFile(directory)
 
-	for _, item := range items {
-		if item.IsDir() {
-			fmt.Println(item.Name())
-			directories = append(directories, item.Name())
-		}
+	if err != nil {
+		return "", err
 	}
-	return directories, nil
+	fmt.Println(string(item))
+	return string(item), nil
 }
