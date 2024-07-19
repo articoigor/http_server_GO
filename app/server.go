@@ -91,7 +91,7 @@ func processGetRequest(components []string, params string, regex regexp.Regexp, 
 		returnMessage = "HTTP/1.1 404 Not Found\r\n\r\n"
 	}
 
-	isEcho := checkEcho(components, params, conn)
+	isEcho := checkEcho(components, params, &regex, conn)
 
 	isUserAgent := checkUserAgent(params, components, &regex, conn)
 
@@ -102,13 +102,13 @@ func processGetRequest(components []string, params string, regex regexp.Regexp, 
 	}
 }
 
-func checkEcho(components []string, params string, conn net.Conn) bool {
+func checkEcho(components []string, params string, regex *regexp.Regexp, conn net.Conn) bool {
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
 
 	if echo != "" {
-		encoder := components[2]
+		encoder := regex.Split(components[2], -1)[1]
 
 		body := components[3]
 
