@@ -65,7 +65,6 @@ func processRequest(req string, conn net.Conn) {
 		fmt.Println("Processing GET request !")
 		processGetRequest(reqComponents, params, *spaceSplitter, conn)
 	case "POST":
-		fmt.Println("Processing POST request !")
 		processPostRequest(reqComponents, params, conn)
 	}
 }
@@ -76,6 +75,8 @@ func processPostRequest(components []string, params string, conn net.Conn) {
 	file := fileNameRegex.Split(params, -1)
 
 	name := file[2]
+
+	fmt.Printf("Processing POST request, uploading file %s!", name)
 
 	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", name)
 
