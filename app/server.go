@@ -119,6 +119,8 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 
 			encoders := strings.Split(arr, ",")
 
+			fmt.Println(arr[1])
+
 			for _, e := range encoders {
 				fmt.Sprintln(e)
 				if e == "gzip" {
