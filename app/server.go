@@ -76,7 +76,7 @@ func checkUserAgent(param string, agentInput string, conn net.Conn) {
 }
 
 func processRequest(req string, conn net.Conn) {
-	reqRegex, _ := regexp.Compile("\n")
+	reqRegex, _ := regexp.Compile("\r\n")
 
 	reqComponents := reqRegex.Split(req, -1)
 
