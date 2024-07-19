@@ -54,9 +54,36 @@ func processRequest(req string, conn net.Conn) {
 
 	spaceSplitter, _ := regexp.Compile(` `)
 
-	params := spaceSplitter.Split(reqComponents[0], -1)[1]
+	requestDetails := spaceSplitter.Split(reqComponents[0], -1)
 
-	url := strings.TrimSpace(spaceSplitter.Split(reqComponents[1], -1)[1])
+	method, params := requestDetails[0], requestDetails[1]
+
+	switch method {
+	case "GET":
+		processGetRequest(reqComponents, params, *spaceSplitter, conn)
+	case "POST":
+		processPostRequest(reqComponents, params, conn)
+	}
+}
+
+func processPostRequest(components []string, params string, conn net.Conn) {
+	fileNameRegex, _ := regexp.Compile(`/files/(.*)`)
+
+	file := fileNameRegex.Split(params, -1)
+
+	name := file[2]
+
+	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", name)
+
+	err := saveFile(directory, components[6])
+
+	if err == nil {
+		conn.Write([]byte("HTTP/1.1 201 Created\r\n\r\n"))
+	}
+}
+
+func processGetRequest(components []string, params string, regex regexp.Regexp, conn net.Conn) {
+	url := strings.TrimSpace(regex.Split(components[1], -1)[1])
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
@@ -66,7 +93,7 @@ func processRequest(req string, conn net.Conn) {
 
 	isEcho := checkEcho(params, conn)
 
-	isUserAgent := checkUserAgent(params, reqComponents, spaceSplitter, conn)
+	isUserAgent := checkUserAgent(params, components, &regex, conn)
 
 	isFile := checkFile(params, conn)
 
@@ -141,4 +168,8 @@ func locateFile(directory string) string {
 	}
 
 	return string(item)
+}
+
+func saveFile(directory, content string) error {
+	return os.WriteFile(directory, []byte(content), os.ModeAppend)
 }
