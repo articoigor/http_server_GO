@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"compress/gzip"
 	"fmt"
 	"log"
 	"net"
@@ -8,12 +10,6 @@ import (
 	"regexp"
 	"strings"
 )
-
-// func logStrings(s string) {
-// 	fmt.Println("*********************")
-// 	fmt.Println(s)
-// 	fmt.Println("*********************")
-// }
 
 func main() {
 	l, err := net.Listen("tcp", "0.0.0.0:4221")
@@ -93,7 +89,7 @@ func processGetRequest(components []string, params string, regex regexp.Regexp, 
 		returnMessage = "HTTP/1.1 404 Not Found\r\n\r\n"
 	}
 
-	isEcho := checkEcho(params, conn)
+	isEcho := checkEcho(components, params, conn)
 
 	isUserAgent := checkUserAgent(params, components, &regex, conn)
 
@@ -104,24 +100,45 @@ func processGetRequest(components []string, params string, regex regexp.Regexp, 
 	}
 }
 
-func checkEcho(params string, conn net.Conn) bool {
+func checkEcho(components []string, params string, conn net.Conn) bool {
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
 
 	if echo != "" {
-		contentRegex, _ := regexp.Compile("/")
+		encoder := components[4]
 
-		content := contentRegex.Split(params, -1)[2]
+		body := components[5]
 
-		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(content), content)
+		content, _ := compressString(body)
 
-		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
+		encodedBody := string(content)
+
+		str := fmt.Sprintf("Content-Encoding: %s\r\nContent-Type: text/plain\r\nContent-Length: %d\r\n\r\n%s", encoder, len(encodedBody), encodedBody)
+
+		conn.Write([]byte("HTTP/1.1 200 OK\r\n" + str))
 
 		return true
 	}
 
 	return false
+}
+
+func compressString(body string) ([]byte, error) {
+	var buffer bytes.Buffer
+	writer := gzip.NewWriter(&buffer)
+
+	_, err := writer.Write([]byte(body))
+	if err != nil {
+		return nil, err
+	}
+
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return buffer.Bytes(), nil
 }
 
 func checkUserAgent(param string, agents []string, regex *regexp.Regexp, conn net.Conn) bool {
