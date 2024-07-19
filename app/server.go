@@ -77,12 +77,12 @@ func processPostRequest(components []string, params string, conn net.Conn) {
 
 	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", fileName)
 
-	fmt.Println("File content: ")
-	fmt.Println(components[5])
 	err := saveFile(directory, components[5])
 
 	if err == nil {
 		conn.Write([]byte("HTTP/1.1 201 Created\r\n\r\n"))
+	} else {
+		fmt.Println("Error uploading file: ", err.Error())
 	}
 }
 
