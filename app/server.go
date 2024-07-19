@@ -119,9 +119,9 @@ func checkFile(params string, conn net.Conn) bool {
 
 		content := contentRegex.Split(params, -1)[2]
 
-		file, _ := locateFile("/tmp/data/codecrafters.io/http-server-tester/" + content)
+		file, err := locateFile("/tmp/data/codecrafters.io/http-server-tester/" + content)
 
-		if file != "" {
+		if err != nil {
 			str := fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: %d\r\n\r\n%s", len(file), file)
 
 			conn.Write([]byte(str))
