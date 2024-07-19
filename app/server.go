@@ -73,7 +73,7 @@ func processPostRequest(components []string, params string, conn net.Conn) {
 
 	fileName := fileNameRegex.Split(params, -1)[1]
 
-	fmt.Println(params)
+	fmt.Println(len(fileNameRegex.Split(params, -1)))
 
 	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", fileName)
 
