@@ -77,6 +77,8 @@ func processPostRequest(components []string, params string, conn net.Conn) {
 
 	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", fileName)
 
+	fmt.Println(directory)
+
 	err := saveFile(directory, components[5])
 
 	if err == nil {
