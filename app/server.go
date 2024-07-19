@@ -115,7 +115,9 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 		encoderRegex, _ := regexp.Compile("Accept-Encoding")
 
 		if len(components) >= 3 && encoderRegex.MatchString(components[2]) {
-			encoders := regex.Split(components[2], -1)
+			arr := regex.Split(components[2], -1)[1]
+
+			encoders := strings.Split(arr, ",")
 
 			for _, e := range encoders {
 				if e == "gzip" {
