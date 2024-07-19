@@ -70,8 +70,6 @@ func processRequest(req string, conn net.Conn) {
 	fmt.Println("Before UserAgent: " + returnMessage)
 	go checkUserAgent(params, reqComponents, &returnMessage)
 
-	fmt.Println(returnMessage)
-
 	conn.Write([]byte(returnMessage))
 }
 
@@ -92,7 +90,7 @@ func checkEcho(params string, message *string) {
 }
 
 func checkUserAgent(param string, agents []string, message *string) {
-	if param == "/user-agent" {
+	if strings.TrimSpace(param) == "/user-agent" {
 		regex, _ := regexp.Compile(` `)
 
 		agent := regex.Split(agents[2], -1)[1]
