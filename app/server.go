@@ -119,9 +119,9 @@ func checkFile(params string, conn net.Conn) bool {
 
 		content := contentRegex.Split(params, -1)[2]
 
-		file, err := locateFile("/tmp/data/codecrafters.io/http-server-tester/" + content)
+		file := locateFile("/tmp/data/codecrafters.io/http-server-tester/" + content)
 
-		if err != nil {
+		if file != "" {
 			str := fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: %d\r\n\r\n%s", len(file), file)
 
 			conn.Write([]byte(str))
@@ -133,12 +133,12 @@ func checkFile(params string, conn net.Conn) bool {
 	return false
 }
 
-func locateFile(directory string) (string, error) {
+func locateFile(directory string) string {
 	item, err := os.ReadFile(directory)
 
 	if err != nil {
-		return "", err
+		return ""
 	}
 
-	return string(item), nil
+	return string(item)
 }
