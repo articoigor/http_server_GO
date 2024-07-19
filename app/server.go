@@ -121,7 +121,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 
 			encoders := commaRegex.Split(arr, -1)
 
-			fmt.Println(arr[0])
+			fmt.Println(string(arr))
 
 			for _, e := range encoders {
 				fmt.Sprintln(e)
