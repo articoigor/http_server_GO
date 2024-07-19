@@ -135,7 +135,7 @@ func fileExists(fileName string) bool {
 	info, err := os.Stat("/tmp/" + fileName)
 
 	if os.IsNotExist(err) {
-
+		fmt.Println(err)
 		return false
 	}
 	return !info.IsDir()
