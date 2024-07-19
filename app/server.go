@@ -120,6 +120,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 			encoders := strings.Split(arr, ",")
 
 			for _, e := range encoders {
+				fmt.Sprintln(e)
 				if e == "gzip" {
 					encoder = "gzip"
 				}
