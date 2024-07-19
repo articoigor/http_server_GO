@@ -75,7 +75,7 @@ func processPostRequest(components []string, file string, conn net.Conn) {
 
 	fmt.Println(name)
 
-	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", fileName)
+	directory := fmt.Sprintf("/tmp/data/codecrafters.io/http-server-tester/%s", name)
 
 	fmt.Println(directory)
 
