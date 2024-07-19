@@ -108,7 +108,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 	echo := echoRegex.FindString(params)
 
 	if echo != "" {
-		bodyRegex, _ := regexp.Compile(`/`)
+		bodyRegex, _ := regexp.Compile("/")
 		fmt.Println(echo)
 		encoder, encodedBody := "", bodyRegex.Split(echo, -1)[1]
 
