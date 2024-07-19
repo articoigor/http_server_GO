@@ -115,28 +115,14 @@ func checkFile(params string, conn net.Conn) bool {
 	filePath := fileRegex.FindString(params)
 
 	if filePath != "" {
-		contentRegex, _ := regexp.Compile("/")
+		// contentRegex, _ := regexp.Compile("/")
 
-		content := contentRegex.Split(params, -1)[2]
+		// _ := contentRegex.Split(params, -1)[2]
 
-		fileExists(content)
-
-		fmt.Println(content)
-
-		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: 14\r\n\r\nHello, World!"))
+		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: 14\r\n\r\n Hello, World!"))
 
 		return true
 	}
 
 	return false
-}
-
-func fileExists(fileName string) bool {
-	info, err := os.Stat("/tmp/" + fileName)
-
-	if os.IsNotExist(err) {
-		fmt.Println(err)
-		return false
-	}
-	return !info.IsDir()
 }
