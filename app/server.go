@@ -6,7 +6,6 @@ import (
 	"net"
 	"os"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -100,13 +99,9 @@ func checkUserAgent(param string, agents []string, conn net.Conn) bool {
 
 		agent := regex.Split(agents[2], -1)[1]
 
-		length := strconv.Itoa(len(agent))
+		content := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
 
-		content := "Content-Length: " + length + "\r\n\r\n" + agent
-
-		returnMessage := "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content
-
-		conn.Write([]byte(returnMessage))
+		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content))
 
 		return true
 	}
