@@ -106,12 +106,11 @@ func checkEcho(components []string, params string, conn net.Conn) bool {
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
-	fmt.Println(echo)
 
 	if echo != "" {
-		encoder := components[3]
+		encoder := components[2]
 
-		body := components[4]
+		body := components[3]
 
 		content, _ := compressString(body)
 
