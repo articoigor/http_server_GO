@@ -119,6 +119,12 @@ func checkFile(params string, conn net.Conn) bool {
 
 		content := contentRegex.Split(params, -1)[2]
 
+		_, err := os.Open("tmp/" + content)
+
+		if err != nil {
+			return false
+		}
+
 		fmt.Println(content)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: 14\r\n\r\nHello, World!"))
