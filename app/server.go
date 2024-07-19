@@ -66,7 +66,7 @@ func processRequest(req string, conn net.Conn) {
 
 	isEcho := checkEcho(params, conn)
 
-	isUserAgent := checkUserAgent(params, reqComponents, conn)
+	isUserAgent := checkUserAgent(params, reqComponents, spaceSplitter, conn)
 
 	if !isEcho && !isUserAgent {
 		conn.Write([]byte(returnMessage))
@@ -93,10 +93,8 @@ func checkEcho(params string, conn net.Conn) bool {
 	return false
 }
 
-func checkUserAgent(param string, agents []string, conn net.Conn) bool {
+func checkUserAgent(param string, agents []string, regex *regexp.Regexp, conn net.Conn) bool {
 	if strings.TrimSpace(param) == "/user-agent" {
-		regex, _ := regexp.Compile(` `)
-
 		agent := regex.Split(agents[2], -1)[1]
 
 		content := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
