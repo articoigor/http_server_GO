@@ -65,8 +65,6 @@ func checkEcho(params string, conn net.Conn) {
 
 func checkUserAgent(param string, agent string, conn net.Conn) {
 	if param == "/user-agent" {
-		agent := regexp.MustCompile("\n").Split(agentInput, -1)[1]
-
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
 
 		fmt.Sprintln(str)
