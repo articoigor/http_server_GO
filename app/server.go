@@ -91,10 +91,6 @@ func checkUserAgent(param string, agents []string, regex regexp.Regexp, conn net
 	if param == "/user-agent" {
 		agent := strings.TrimSpace(regex.Split(agents[2], -1)[1])
 
-		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), "BLUE")
-
-		fmt.Sprintln(str)
-
-		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + str))
+		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + agent))
 	}
 }
