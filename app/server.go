@@ -68,7 +68,9 @@ func processRequest(req string, conn net.Conn) {
 
 	isUserAgent := checkUserAgent(params, reqComponents, spaceSplitter, conn)
 
-	if !isEcho && !isUserAgent {
+	isFile := checkFile(params, conn)
+
+	if !isEcho && !isUserAgent && !isFile {
 		conn.Write([]byte(returnMessage))
 	}
 }
@@ -98,6 +100,26 @@ func checkUserAgent(param string, agents []string, regex *regexp.Regexp, conn ne
 		agent := regex.Split(agents[2], -1)[1]
 
 		content := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
+
+		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content))
+
+		return true
+	}
+
+	return false
+}
+
+func checkFile(params string, conn net.Conn) bool {
+	fileRegex, _ := regexp.Compile(`/file/(.*)`)
+
+	filePath := fileRegex.FindString(params)
+
+	if filePath != "" {
+		contentRegex, _ := regexp.Compile("/")
+
+		content := contentRegex.Split(params, -1)[1]
+
+		fmt.Println(content)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content))
 
