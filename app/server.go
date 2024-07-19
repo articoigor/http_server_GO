@@ -58,7 +58,7 @@ func processRequest(req string, conn net.Conn) {
 
 	method, params := requestDetails[0], requestDetails[1]
 
-	fmt.Println(len(reqComponents))
+	fmt.Println(req)
 
 	switch method {
 	case "GET":
