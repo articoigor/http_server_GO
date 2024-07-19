@@ -117,9 +117,11 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 		if len(components) >= 3 && encoderRegex.MatchString(components[2]) {
 			arr := regex.Split(components[2], -1)[1]
 
-			encoders := strings.Split(arr, ",")
+			commaRegex, _ := regexp.Compile(",")
 
-			fmt.Println(arr[1])
+			encoders := commaRegex.Split(arr, -1)
+
+			fmt.Println(arr[0])
 
 			for _, e := range encoders {
 				fmt.Sprintln(e)
