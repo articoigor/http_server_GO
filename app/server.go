@@ -112,13 +112,17 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 
 		encodedBody := components[3]
 
+		var str string
+
 		if encoder == "gzip" {
 			content, _ := compressString(encodedBody)
 
 			encodedBody = string(content)
+
+			str = fmt.Sprintf("Content-Encoding: %s\r\n", encoder)
 		}
 
-		str := fmt.Sprintf("Content-Encoding: %s\r\nContent-Type: text/plain\r\nContent-Length: %d\r\n\r\n%s", encoder, len(encodedBody), encodedBody)
+		str += fmt.Sprintf("Content-Encoding: %s\r\nContent-Type: text/plain\r\nContent-Length: %d\r\n\r\n%s", len(encodedBody), encodedBody)
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\n" + str))
 
