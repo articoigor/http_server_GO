@@ -110,7 +110,7 @@ func checkUserAgent(param string, agents []string, regex *regexp.Regexp, conn ne
 }
 
 func checkFile(params string, conn net.Conn) bool {
-	fileRegex, _ := regexp.Compile(`/file/(.*)`)
+	fileRegex, _ := regexp.Compile(`/files/(.*)`)
 
 	filePath := fileRegex.FindString(params)
 
@@ -121,7 +121,7 @@ func checkFile(params string, conn net.Conn) bool {
 
 		fmt.Println(content)
 
-		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + content))
+		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: 14\r\n\r\nHello, World!"))
 
 		return true
 	}
