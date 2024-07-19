@@ -110,6 +110,8 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 	if echo != "" {
 		encoder := regex.Split(components[2], -1)[1]
 
+		fmt.Println(encoder)
+
 		body := components[3]
 
 		content, _ := compressString(body)
