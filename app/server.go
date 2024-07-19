@@ -92,7 +92,7 @@ func checkEcho(params string, message *string) {
 func checkUserAgent(param string, agents []string, message *string) {
 	if strings.TrimSpace(param) == "/user-agent" {
 		fmt.Println("ENTROU: " + agents[2])
-		regex, _ := regexp.Compile(` `)
+		regex, _ := regexp.Compile(`\s`)
 
 		agent := regex.Split(agents[2], -1)[1]
 
