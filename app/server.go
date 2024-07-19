@@ -64,11 +64,11 @@ func processRequest(req string, conn net.Conn) {
 		returnMessage = "HTTP/1.1 404 Not Found\r\n\r\n"
 	}
 
-	fmt.Println("Before Echo: " + returnMessage)
 	go checkEcho(params, &returnMessage)
 
-	fmt.Println("Before UserAgent: " + returnMessage)
 	go checkUserAgent(params, reqComponents, &returnMessage)
+
+	fmt.Println(returnMessage)
 
 	conn.Write([]byte(returnMessage))
 }
@@ -96,7 +96,5 @@ func checkUserAgent(param string, agents []string, message *string) {
 		agent := regex.Split(agents[2], -1)[1]
 
 		*message = fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %d\r\n%s", len(agent), agent)
-
-		fmt.Println(*message)
 	}
 }
