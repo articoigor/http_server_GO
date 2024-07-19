@@ -112,6 +112,7 @@ func checkEcho(components []string, params string, conn net.Conn) bool {
 
 		encoder, encodedBody := "", bodyRegex.Split(echo, -1)[2]
 
+		fmt.Println(encodedBody)
 		encoderRegex, _ := regexp.Compile("Accept-Encoding:")
 
 		if len(components) >= 3 && encoderRegex.MatchString(components[2]) {
@@ -125,8 +126,6 @@ func checkEcho(components []string, params string, conn net.Conn) bool {
 					encoder = "gzip"
 				}
 			}
-
-			encodedBody = components[4]
 		}
 
 		var str string
