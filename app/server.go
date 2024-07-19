@@ -48,7 +48,6 @@ func createConnection(conn net.Conn) {
 }
 
 func checkEcho(params string, conn net.Conn) {
-	fmt.Println(params)
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
@@ -64,9 +63,10 @@ func checkEcho(params string, conn net.Conn) {
 	}
 }
 
-func checkUserAgent(arr []string, conn net.Conn) {
-	if len(arr) > 1 {
-		agent := arr[1]
+func checkUserAgent(param string, agentInput string, conn net.Conn) {
+	fmt.Println(param)
+	if param == "/user-agent" {
+		agent := regexp.MustCompile("\n").Split(agentInput, -1)[1]
 
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
 
@@ -85,11 +85,9 @@ func processRequest(req string, conn net.Conn) {
 
 	url := strings.TrimSpace(spaceSplitter.Split(reqComponents[1], -1)[1])
 
-	userAgent := spaceSplitter.Split(reqComponents[2], -1)
-
 	go checkEcho(params, conn)
 
-	go checkUserAgent(userAgent, conn)
+	go checkUserAgent(params, reqComponents[2], conn)
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
