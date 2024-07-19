@@ -113,7 +113,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 		encoder, encodedBody := "", bodyRegex.Split(echo, -1)[2]
 
 		if len(components) >= 3 {
-			encoder = "gzip"
+			encoder = regex.Split(components[2], -1)[1]
 
 			encodedBody = components[4]
 		}
