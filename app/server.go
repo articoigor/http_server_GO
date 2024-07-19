@@ -106,7 +106,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 	echoRegex, _ := regexp.Compile(`/echo/(.*)`)
 
 	echo := echoRegex.FindString(params)
-
+	fmt.Println(echo)
 	if echo != "" {
 		bodyRegex, _ := regexp.Compile("/")
 
