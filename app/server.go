@@ -32,7 +32,7 @@ func main() {
 }
 
 func createConnection(conn net.Conn) {
-	bytes := make([]byte, 256)
+	bytes := make([]byte, 386)
 
 	_, err := conn.Read(bytes)
 
