@@ -69,7 +69,7 @@ func processRequest(req string, conn net.Conn) {
 }
 
 func processPostRequest(components []string, params string, conn net.Conn) {
-	fmt.Sprintln(params)
+	fmt.Println(params)
 	fileNameRegex, _ := regexp.Compile(`/files/(.*)`)
 
 	name := fileNameRegex.Split(params, -1)[1]
