@@ -108,7 +108,7 @@ func checkEcho(components []string, params string, regex *regexp.Regexp, conn ne
 	echo := echoRegex.FindString(params)
 
 	if echo != "" {
-		encoder, encodedBody := regex.Split(components[len(components)-1], -1)[1], components[len(components)-1]
+		encoder, encodedBody := regex.Split(components[len(components)-3], -1)[1], components[len(components)-1]
 
 		var str string
 
