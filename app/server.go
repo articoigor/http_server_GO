@@ -117,7 +117,7 @@ func checkFile(params string, conn net.Conn) bool {
 	if filePath != "" {
 		contentRegex, _ := regexp.Compile("/")
 
-		content := contentRegex.Split(params, -1)[1]
+		content := contentRegex.Split(params, -1)[2]
 
 		fmt.Println(content)
 
