@@ -87,8 +87,10 @@ func checkEcho(params string, conn net.Conn) {
 	}
 }
 
-func checkUserAgent(param string, agents []string, regex regexp.Regexp, conn net.Conn) {
+func checkUserAgent(param string, agents []string, conn net.Conn) {
 	if param == "/user-agent" {
+		regex, _ := regexp.Compile(` `)
+
 		agent := regex.Split(agents[2], -1)[1]
 
 		fmt.Sprintln(agent)
