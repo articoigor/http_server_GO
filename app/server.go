@@ -119,7 +119,7 @@ func checkFile(params string, conn net.Conn) bool {
 
 		// _ := contentRegex.Split(params, -1)[2]
 
-		getDirectoriesInDirectory("/tmp/data/codecrafters.io")
+		getDirectoriesInDirectory("/tmp/data/codecrafters.io/http-server-tester")
 
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: 14\r\n\r\n Hello, World!"))
 
