@@ -173,5 +173,5 @@ func locateFile(directory string) string {
 }
 
 func saveFile(directory, content string) error {
-	return os.WriteFile(directory, []byte(strings.TrimSpace(content)), os.ModeAppend)
+	return os.WriteFile(directory, []byte(strings.ReplaceAll(content, "\x00", "")), os.ModeAppend)
 }
