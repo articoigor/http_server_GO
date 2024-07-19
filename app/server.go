@@ -58,11 +58,9 @@ func processRequest(req string, conn net.Conn) {
 
 	url := strings.TrimSpace(spaceSplitter.Split(reqComponents[1], -1)[1])
 
-	agent := strings.TrimSpace(spaceSplitter.Split(reqComponents[2], -1)[1])
-
 	go checkEcho(params, conn)
 
-	go checkUserAgent(params, agent, conn)
+	go checkUserAgent(params, reqComponents, conn)
 
 	returnMessage := "HTTP/1.1 200 OK\r\n\r\n"
 
@@ -89,8 +87,9 @@ func checkEcho(params string, conn net.Conn) {
 	}
 }
 
-func checkUserAgent(param string, agent string, conn net.Conn) {
+func checkUserAgent(param string, agents []string, regex regexp.Regexp, conn net.Conn) {
 	if param == "/user-agent" {
+		agent := strings.TrimSpace(regex.Split(agents[2], -1)[1])
 		str := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(agent), agent)
 
 		fmt.Sprintln(str)
