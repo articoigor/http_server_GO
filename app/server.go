@@ -119,22 +119,7 @@ func checkFile(params string, conn net.Conn) bool {
 
 		content := contentRegex.Split(params, -1)[2]
 
-		file, err := os.Open("/tmp/" + content)
-
-		if err != nil {
-			fmt.Println("Error opening file: " + err.Error())
-			return false
-		}
-
-		data := make([]byte, 100)
-
-		count, err := file.Read(data)
-
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		fmt.Printf("read %d bytes: %q\n", count, data[:count])
+		fileExists(content)
 
 		fmt.Println(content)
 
@@ -144,4 +129,14 @@ func checkFile(params string, conn net.Conn) bool {
 	}
 
 	return false
+}
+
+func fileExists(fileName string) bool {
+	info, err := os.Stat("/tmp/" + fileName)
+
+	if os.IsNotExist(err) {
+
+		return false
+	}
+	return !info.IsDir()
 }
